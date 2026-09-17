@@ -1,5 +1,6 @@
 import 'package:demoaipass/core/app_constant.dart';
 import 'package:demoaipass/views/auth/register_view.dart';
+import 'package:demoaipass/views/home/main_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -32,10 +33,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', // หน้าแรก
       getPages: [
         GetPage(name: '/', page: () => const LoginView()),
-        GetPage(
-          name: '/register',
-          page: () => const RegisterView(),
-        ), // สมมติว่ามีหน้านี้แล้ว
+        GetPage(name: '/register', page: () => const RegisterView()),
+        GetPage(name: '/home', page: () => const MainHome()),
       ],
     );
   }
