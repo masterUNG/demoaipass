@@ -1,4 +1,3 @@
-import 'package:demoaipass/views/auth/register_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_undraw/ms_undraw.dart';
@@ -9,6 +8,15 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ใช้ RxBool คุมการแสดง Password
+    final isPasswordVisible = false.obs;
+
+    // สไตล์ Outline ที่โค้งไม่มาก
+    final inputBorder = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(color: AppConstants.appColor.withOpacity(0.5)),
+    );
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(24),
@@ -22,7 +30,6 @@ class LoginView extends StatelessWidget {
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 UnDraw(
                   color: AppConstants.appColor,
@@ -30,26 +37,45 @@ class LoginView extends StatelessWidget {
                   width: Get.width * 0.8,
                   height: Get.width * 0.8,
                 ),
-                Text(AppConstants.appName, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 20),
-                TextFormField(decoration: const InputDecoration(prefixIcon: Icon(Icons.person), hintText: "User")),
-                TextFormField(decoration: const InputDecoration(prefixIcon: Icon(Icons.lock), hintText: "Password"), obscureText: true),
-                const SizedBox(height: 20),
-                // ปุ่มไล่สี (Gradient Button)
-                GestureDetector(
-                  onTap: () => {}, // เรียก AuthController.login ที่นี่
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [AppConstants.appColor, Colors.white, AppConstants.appColor]),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: const Text("LOGIN", style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(AppConstants.appName, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
+                const SizedBox(height: 30),
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.person_outline),
+                    hintText: "Username",
+                    border: inputBorder,
+                    enabledBorder: inputBorder,
                   ),
                 ),
+                const SizedBox(height: 16),
+                // Password พร้อม Obx
+                Obx(() => TextFormField(
+                  obscureText: !isPasswordVisible.value,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.lock_outline),
+                    suffixIcon: IconButton(
+                      icon: Icon(isPasswordVisible.value ? Icons.visibility : Icons.visibility_off),
+                      onPressed: () => isPasswordVisible.toggle(),
+                    ),
+                    hintText: "Password",
+                    border: inputBorder,
+                    enabledBorder: inputBorder,
+                  ),
+                )),
+                const SizedBox(height: 24),
+                // ปุ่ม
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [AppConstants.appColor, Colors.white, AppConstants.appColor]),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(child: Text("LOGIN", style: TextStyle(fontWeight: FontWeight.bold, color: AppConstants.appColor))),
+                ),
                 TextButton(
-                  onPressed: () => Get.to(RegisterView()), 
-                  child: const Text("สมัครสมาชิกใหม่"),
+                  onPressed: () => Get.toNamed('/register'),
+                  child: const Text("สมัครสมาชิกใหม่", style: TextStyle(color: Colors.black54)),
                 ),
               ],
             ),

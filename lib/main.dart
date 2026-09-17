@@ -1,12 +1,15 @@
+import 'package:demoaipass/core/app_constant.dart';
+import 'package:demoaipass/views/auth/register_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
 import 'views/auth/login_view.dart'; // ตรวจสอบ Path ให้ตรงกับที่คุณสร้างไว้
 
 void main() async {
   // 1. รอให้ Flutter engine ทำงานก่อนเรียกใช้ GetStorage
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // 2. Initialize GetStorage
   await GetStorage.init();
 
@@ -21,13 +24,19 @@ class MyApp extends StatelessWidget {
     // 3. ใช้ GetMaterialApp เพื่อให้ GetX ทำงานได้เต็มที่ (Route, Snackbar, etc.)
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Minimalist App',
+      title: AppConstants.appName,
       theme: ThemeData(
-        primarySwatch: Colors.green, // เลือกสีตามธีมที่คุณต้องการ
+        colorScheme: ColorScheme.fromSeed(seedColor: AppConstants.appColor),
         useMaterial3: true,
       ),
-      home: const LoginView(), // หน้าแรกคือ LoginView
-      // หรือถ้าอยากใช้ named route สามารถใส่ getPages ได้ที่นี่
+      initialRoute: '/', // หน้าแรก
+      getPages: [
+        GetPage(name: '/', page: () => const LoginView()),
+        GetPage(
+          name: '/register',
+          page: () => const RegisterView(),
+        ), // สมมติว่ามีหน้านี้แล้ว
+      ],
     );
   }
 }
