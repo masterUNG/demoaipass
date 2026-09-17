@@ -109,11 +109,11 @@ class RegisterView extends StatelessWidget {
                         onTap: () {
                           if (formKey.currentState!.validate()) {
                             // เรียกใช้ method register ใน authController
-                            // authController.register(
-                            //   nameController.text, 
-                            //   userController.text, 
-                            //   passController.text
-                            // );
+                            authController.register(
+                              nameController.text, 
+                              userController.text, 
+                              passController.text
+                            );
                           }
                         },
                         child: Container(
