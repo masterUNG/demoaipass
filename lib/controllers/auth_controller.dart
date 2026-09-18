@@ -15,7 +15,9 @@ class AuthController extends GetxController {
   Future<void> login(String username, String password) async {
     isLoading.value = true;
 
-    debugPrint('Attempting login with username: $username and password: $password');
+    debugPrint(
+      'Attempting login with username: $username and password: $password',
+    );
 
     try {
       final response = await _apiClient.dio.post(
@@ -39,50 +41,52 @@ class AuthController extends GetxController {
 
   // ใน lib/controllers/auth_controller.dart
 
-Future<void> register(String name, String user, String password) async {
-  isLoading.value = true;
-  
-  try {
-    // กำหนด URL ของ API
-    const String url = 'https://www.papayashotgo.com/noteToonProJ/apiUng/api/register.php';
-    
-    // เตรียมข้อมูลที่จะส่ง (Payload)
-    final Map<String, dynamic> data = {
-      "name": name,
-      "user": user,
-      "password": password,
-    };
+  Future<void> register(String name, String user, String password) async {
+    isLoading.value = true;
 
-    // ส่ง request ผ่าน Dio (สมมติว่าคุณตั้งค่า Dio ไว้ใน api_client.dart แล้ว)
-    // หรือถ้าใช้ instance ทั่วไป:
-    final response = await dio_package.Dio().post(
-      url,
-      data: data,
-      options: dio_package.Options(
-        headers: {
-          'Content-Type': 'application/json',
-          'accept': '*/*',
-        },
-      ),
-    );
+    try {
+      // กำหนด URL ของ API
+      const String url =
+          'https://www.papayashotgo.com/noteToonProJ/apiUng/api/register.php';
 
-    // ตรวจสอบผลลัพธ์
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      Get.back(); // ปิดหน้า Register หลังจากสมัครสำเร็จ
-      Get.snackbar("สำเร็จ", "สมัครสมาชิกเรียบร้อยแล้ว", 
-        backgroundColor: Colors.green, colorText: Colors.white);
-    } else {
-      throw Exception('สมัครสมาชิกไม่สำเร็จ');
+      // เตรียมข้อมูลที่จะส่ง (Payload)
+      final Map<String, dynamic> data = {
+        "name": name,
+        "user": user,
+        "password": password,
+      };
+
+      // ส่ง request ผ่าน Dio (สมมติว่าคุณตั้งค่า Dio ไว้ใน api_client.dart แล้ว)
+      // หรือถ้าใช้ instance ทั่วไป:
+      final response = await dio_package.Dio().post(
+        url,
+        data: data,
+        options: dio_package.Options(
+          headers: {'Content-Type': 'application/json', 'accept': '*/*'},
+        ),
+      );
+
+      // ตรวจสอบผลลัพธ์
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.back(); // ปิดหน้า Register หลังจากสมัครสำเร็จ
+        Get.snackbar(
+          "สำเร็จ",
+          "สมัครสมาชิกเรียบร้อยแล้ว",
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+      } else {
+        throw Exception('สมัครสมาชิกไม่สำเร็จ');
+      }
+    } catch (e) {
+      Get.snackbar(
+        "เกิดข้อผิดพลาด",
+        e.toString(),
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } finally {
+      isLoading.value = false;
     }
-  } catch (e) {
-    Get.snackbar("เกิดข้อผิดพลาด", e.toString(), 
-      backgroundColor: Colors.red, colorText: Colors.white);
-  } finally {
-    isLoading.value = false;
   }
-}
-
-
-
-
 }
