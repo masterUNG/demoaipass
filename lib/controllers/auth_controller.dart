@@ -15,9 +15,9 @@ class AuthController extends GetxController {
   Future<void> login(String username, String password) async {
     isLoading.value = true;
 
-    debugPrint(
-      'Attempting login with username: $username and password: $password',
-    );
+    // debugPrint(
+    //   'Attempting login with username: $username and password: $password',
+    // );
 
     try {
       final response = await _apiClient.dio.post(
