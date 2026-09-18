@@ -11,7 +11,7 @@ class MainHome extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
 
   // รายการหน้าจอที่จะแสดง
-  final List<Widget> pages = [const ListNews(), const ProfilePage()];
+  final List<Widget> pages = [const ListNews(), ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
