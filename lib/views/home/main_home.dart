@@ -11,26 +11,23 @@ class MainHome extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
 
   // รายการหน้าจอที่จะแสดง
-  final List<Widget> pages = [
-    const ListNews(),
-    const ProfilePage(),
-  ];
+  final List<Widget> pages = [const ListNews(), const ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Main Home'),
-      ),
+      appBar: AppBar(title: const Text('Main Home')),
       body: Obx(() => pages[controller.currentIndex.value]),
-      bottomNavigationBar: Obx(() => BottomNavigationBar(
-        currentIndex: controller.currentIndex.value,
-        onTap: controller.changeIndex,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'News'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      )),
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          currentIndex: controller.currentIndex.value,
+          onTap: controller.changeIndex,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'News'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          ],
+        ),
+      ),
     );
   }
 }
