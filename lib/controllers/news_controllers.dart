@@ -26,6 +26,8 @@ class NewsController extends GetxController {
         queryParameters: {'page': 1, 'limit': 10, 'include_image': 1}
       );
 
+      debugPrint("## Response: ${response.data}"); // Debugging line
+
       if (response.statusCode == 200 && response.data['success'] == true) {
         var data = response.data['data'] as List;
         newsList.value = data.map((e) => NewsModel.fromJson(e)).toList();

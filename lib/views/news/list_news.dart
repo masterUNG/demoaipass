@@ -12,7 +12,7 @@ class ListNews extends StatelessWidget {
     final NewsController controller = Get.put(NewsController());
 
     return Scaffold(
-      appBar: AppBar(title: const Text('News List')),
+      // appBar: AppBar(title: const Text('News List123')),
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());

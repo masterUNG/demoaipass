@@ -16,9 +16,9 @@ class ApiClient {
       BaseOptions(
         baseUrl: 'https://www.papayashotgo.com/noteToonProJ/apiUng/api/', // ปรับ BaseURL ตามที่เคยคุยกัน
 
-        connectTimeout: const Duration(seconds: 10),
+        connectTimeout: const Duration(seconds: 20),
 
-        receiveTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 20),
       ),
     );
 
